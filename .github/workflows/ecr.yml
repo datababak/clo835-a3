@@ -1,0 +1,49 @@
+# This is a basic workflow to help you get started with Actions
+
+name: This workflow builds two Docker images and pushes them into AWS ECR
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      # Logs in the local Docker client to ECR using the AWS Academy credentials
+      #Logs in the local Docker client to one or more Amazon ECR Private registries or an Amazon ECR Public registry.
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+          AWS_REGION: us-east-1        
+      # Builds two Ducker images and push them into Amazon ECR
+      - name: Build Two Images and push them into Amazon ECR
+        env:
+         REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+         REPOSITORY: clo835-a1
+         IMAGE_TAG: ${{ github.sha }}
+        run: |
+          # Building Docker image for mysql
+          docker build -f Dockerfile_mysql -t $REGISTRY/a1-db:v1.0 .
+          docker push $REGISTRY/a1-db:v1.0
+          # Building docker for webapp
+          docker build -f Dockerfile -t $REGISTRY/a1-app:v1.0 .
+          docker push $REGISTRY/a1-app:v1.0
