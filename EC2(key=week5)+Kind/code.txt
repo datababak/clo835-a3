@@ -1,0 +1,20 @@
+cd EC2(key=week5)+Kind 
+alias tf=terraform
+tf init (go in the terraform folder)
+ssh-keygen -f week5
+tf apply --auto-approve
+scp -i week5 init_kind.sh kind.yaml 44.195.59.122:/tmp
+ssh -i week5 44.195.59.122
+cd /tmp
+ls
+chmod 777 init_kind.sh
+./init_kind.sh
+exit (come out of the ec2 /tmp)
+ssh -i week5 44.195.59.122 (log into the machine again)
+alias k=kubectl
+k cluster-info (IP of K8s API server in your cluster)
+k get nodes
+k get ns
+k create ns my-app
+k create ns my-db
+k get ns (you can see 2 new namespaces)
