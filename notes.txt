@@ -1,0 +1,1 @@
+go to the top right of the panel >>setting>>AWS settings>>Disable the "AWS managed temporary credentials"  
