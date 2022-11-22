@@ -2,6 +2,7 @@
 # update credentials 
 rm -vf ${HOME}/.aws/credentials  ## deletes the existing credential file
 vi ~/.aws/credentials ## paste the credentials here as shown in the above picture
+vi notes.txt  ## Reminder to disable the AWS credentials
 
 # install kubectl
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
