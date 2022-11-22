@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 # update credentials 
 rm -vf ${HOME}/.aws/credentials  ## deletes the existing credential file
 vi ~/.aws/credentials ## paste the credentials here as shown in the above picture
