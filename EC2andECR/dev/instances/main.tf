@@ -144,11 +144,18 @@ resource "aws_eip" "static_eip" {
     }
   )
 }
-##############################################################################
+##################################################
 # AWS ECR Repository Creation
-resource "aws_ecr_repository" "ecr_repository" {
+resource "aws_ecr_repository" "ecr_repository1" {
   name                 = "a1-app"
   image_tag_mutability = "IMMUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+}
+
+resource "aws_ecr_repository" "ecr_repository2" {
   name                 = "a1-db"
   image_tag_mutability = "IMMUTABLE"
 
@@ -156,3 +163,4 @@ resource "aws_ecr_repository" "ecr_repository" {
     scan_on_push = true
   }
 }
+################################################
