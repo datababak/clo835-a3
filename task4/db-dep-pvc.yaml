@@ -14,12 +14,12 @@ spec:
   template:
     metadata:
       labels:
-       app: sqlpvc-in-deployment
+        app: sqlpvc-in-deployment
     spec:
       volumes:
-       - name: mysql-4g-pvc-sc
-         persistentVolumeClaim:
-           claimName: mysql-pvc
+      - name: mysql-4g-pvc-sc
+        persistentVolumeClaim:
+          claimName: mysql-pvc
       containers:
       - name: mysql-pod-in-dep
         image: 328460808357.dkr.ecr.us-east-1.amazonaws.com/a1-db:v1.0
@@ -31,5 +31,5 @@ spec:
           containerPort: 3306
           protocol: TCP
         volumeMounts:
-        - name: mysql-4g-pvc-sc
-          mountPath: /data/db4g1
+          - name: mysql-4g-pvc-sc
+            mountPath: /data/db4g1
